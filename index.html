@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .box {
+            width: 790px;
+            height: 340px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        img:nth-of-type(n+2){
+            display: none;
+        }
+        .prev {
+            width: 30px;
+            height: 50px;
+            opacity: 0.3;
+            background-color: #5F5F5F;
+            color: #fff;
+            font-size: 20px;
+            font-family: "宋体";
+            text-align: center;
+            line-height: 50px;
+            margin-top: 145px;
+        }
+        .next {
+            width: 30px;
+            height: 50px;
+            opacity: 0.3;
+            background-color: #5F5F5F;
+            color: #fff;
+            font-size: 20px;
+            font-family: "宋体";
+            text-align: center;
+            line-height: 50px;
+            margin-top: -50px;
+            margin-left: 760px;
+        }
+        .yuan{
+            position: absolute;
+            top: 0;
+        }
+        .yuan li{
+            width: 10px;
+            height: 10px;
+            color: #fff;
+        }
+    </style>
+</head>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<body>
+<div class="box">
+    <div>
+        <img src="img/1.jpg" alt="">
+        <img src="img/2.jpg" alt="">
+        <img src="img/3.jpg" alt="">
+        <img src="img/4.jpg" alt="">
+        <img src="img/5.jpg" alt="">
+        <img src="img/6.jpg" alt="">
+        <img src="img/7.jpg" alt="">
+        <img src="img/8.jpg" alt="">
+    </div>
+    <div class="prev"> <</div>
+    <div class="next"> ></div>
+    <ul class="yuan">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+<script>
+    var index = 0;
+    $li = $('li');
+    $img=$('img');
+    var timer = null;
+
+    //      轮播图自动轮播播放
+    function change() {
+        index++;
+        if (index == $img.length) {
+            index = 0;
+        }
+        $img.fadeOut().eq(index).fadeIn();
+    }
+    timer = setInterval(change, 3000);
+    //      鼠标移入轮播停止
+    $('.box').on('mouseenter', function () {
+        clearInterval(timer);
+    });
+    //      鼠标移出时继续轮播
+    $('.box').on('mouseleave', function () {
+        timer = setInterval(change, 3000)
+    });
+    //      右边按键轮播
+    $('.next').on('click', function () {
+        index++;
+        if (index == $img.length) {
+            index = 0;
+        }
+        $img.fadeOut().eq(index).fadeIn();
+    }).on('mouseenter', function () {
+        $(this).css('opacity', '0.6')
+    }).on('mouseleave', function () {
+        $(this).css('opacity', '0.3')
+    });
+
+    //      右边按键轮播
+    $('.prev').on('click', function () {
+        index--;
+        if (index < 0) {
+            index = $img.length - 1;
+        }
+        $img.fadeOut().eq(index).fadeIn();
+    }).on('mouseenter', function () {
+        $(this).css('opacity', '0.6')
+    }).on('mouseleave', function () {
+        $(this).css('opacity', '0.3')
+    });
+
+
+</script>
+</html>
